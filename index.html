@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Взорвать телеграм?</title>
+</head>
+<style>
+    .wrapper {
+        overflow: hidden;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .telegram {
+        transition: all 1.5s ease-in-out;
+        width: 100%;
+        max-width: 500px;
+        margin-inline: auto;
+        margin-top: 100px;
+        border: 10px solid #000;
+        padding: 30px 20px 80px;
+    }
+    .telegram-title {
+        font-size: 34px;
+        font-weight: 600;
+        line-height: 1.1;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .telegram-destroyer {
+        position: relative;
+        width: 100%;
+    }
+    .telegram-destroyer__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-inline: auto;
+        background-color: red;
+        border: 3px solid #000;
+        color: #fdfdfd;
+        font-weight: 600;
+        font-size: 22px;
+        cursor: pointer;
+        transition: all 0.25s ease-in-out;
+    }
+    .telegram-destroyer__cover {
+        display: none;
+        width: 150px;
+        height: 150px;
+        margin-inline: auto;
+        background-color: #94949434;
+        backdrop-filter: blur(7px);
+        z-index: 5;
+        position: absolute;
+        left: calc(50% - 75px - 4px);
+        top: -25px;
+        transition: all 1s ease-in-out;
+        border: 4px solid #797979;
+    }
+    .telegram-destroyer__button:hover {
+        box-shadow: inset 0 0 5px #000;
+    }
+    .telegram-destroyer__button:focus {
+        background-color: rgb(192, 0, 0);
+        box-shadow: inset 0 0 5px #000;
+    }
+    .city {
+        display: none;
+        margin-top: 100px;
+        background-image: url(./img/siblins.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top center;
+        width: 100%;
+        max-width: 700px;
+        min-height: 364px;
+        margin-inline: auto;
+        position: relative;
+    }
+    .city-plane {
+        width: 50px;
+        position: absolute;
+        top: 30%;
+        left: -100px;
+        transition: left 10s ease-in-out;
+    }
+    .city-plane img {
+        width: 100%;
+        height: auto;
+    }
+    .city-plane._anim {
+        left: 300%;
+    }
+    .osuzhdaem {
+        margin-top: 150px;
+        font-size: 48px;
+        font-weight: 600;
+        color: rgb(21, 150, 21);
+        text-align: center;
+        display: none;
+    }
+</style>
+<body>
+    <div class="wrapper">
+        <div class="telegram">
+            <p class="telegram-title">
+                Взорвать телеграм?
+            </p>
+            <div class="telegram-destroyer">
+                <div class="telegram-destroyer__cover"></div>
+                <button class="telegram-destroyer__button">
+                    Да
+                </button>
+            </div>
+        </div>
+        <div class="city">
+            <div class="city-plane">
+                <picture>
+                    <!-- <source> -->
+                    <img src="./img/plane.png" alt="#">
+                </picture>
+            </div>
+        </div>
+        <p class="osuzhdaem">
+            Осуждаем, живем в мире :)
+        </p>
+    </div>
+    <script>
+        document.querySelector('.telegram-destroyer__button').addEventListener('click', function() {
+  const telegramElement = document.querySelector('.telegram');
+  const cityElement = document.querySelector('.city');
+  const cityPlaneElement = document.querySelector('.city-plane');
+  const osuzhdaemElement = document.querySelector('.osuzhdaem');
+
+  if (!telegramElement || !cityElement) {
+    console.warn('Either .telegram or .city element not found.');
+    return; // Exit if required elements are missing
+  }
+
+    if (!osuzhdaemElement) {
+        console.warn('.osuzhdaem element not found.');
+        return;
+    }
+
+  // Set initial opacity to 0
+  telegramElement.style.opacity = '0';
+
+  // First Timer: Hide telegram, show city
+  setTimeout(function() {
+    telegramElement.style.display = 'none';
+    telegramElement.style.opacity = ''; // Reset opacity
+    cityElement.style.display = 'block';  // Show city
+
+    // Second Timer: Add _anim class to city-plane
+    setTimeout(function() {
+      if (cityPlaneElement) {
+        cityPlaneElement.classList.add('_anim');
+      } else {
+        console.warn('.city-plane element not found.');
+      }
+
+      // Third Timer: Hide .city and show .osuzhdaem
+      setTimeout(function() {
+        cityElement.style.display = 'none';  // Hide city
+        osuzhdaemElement.style.display = 'block';  // Show osuzhdaem
+      }, 6000); // Third timer delay (adjust as needed)
+
+    }, 1000); // Adjust delay for city-plane animation (in ms)
+
+  }, 2000); // Delay for Telegram disappearance and City appearance
+});
+    </script>
+</body>
+</html>
